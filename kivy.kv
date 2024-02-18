@@ -1,0 +1,217 @@
+<TooltipIcon@MDIconButton+MDTooltip>
+Content>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+
+    MDTextField:
+        hint_text: "Кому"
+        mode: "fill"
+    MDTextField:
+        mode: "fill"
+        hint_text: "Сколько"
+        text: '0'
+        input_filter: 'float'
+    MDTextField:
+        hint_text: "Сообщение"
+        mode: "fill"
+ScreenManager:
+    id: screen_manager
+    MDScreen:
+        name: "sig_in"
+        MDCard:
+            size_hint: .8, .88
+            pos_hint: {"center_x": .5, "center_y": .5}
+            elevation: 6
+            orientation: "vertical"
+            MDFloatLayout:
+                MDLabel:
+                    text: "Вход"
+                    font_size: "50sp"
+                    pos_hint: {"center_x": .85, "center_y": .85}
+                MDTextField:
+                    id: login_sigin
+                    mode: "rectangle"
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: "Логин"
+                    text_color_active: 1,1,1,1
+                    pos_hint: {"center_x": .5, "center_y": .67}
+                MDTextField:
+                    id: password_sigin
+                    mode: "rectangle"
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: "Пароль"
+                    pos_hint: {"center_x": .5, "center_y": .55}
+                MDRaisedButton:
+                    text: " Войти "
+                    text_size: "39sp"
+                    pos_hint: {"center_x": .5, "center_y": .315}
+                    on_release:
+                        app.sig_in()
+                MDFlatButton:
+                    text: "Еще нет,"
+                    font_size: "25sp"
+                    pos_hint: {"center_x": .38, "center_y": .135}
+                MDFlatButton:
+                    text: "Создай"
+                    font_size: "25sp"
+                    pos_hint: {"center_x": .65, "center_y": .135}
+                    on_release:
+                        app.screen('registration')
+    MDScreen:
+        name: "registration"
+        MDCard:
+            id: singuser
+            size_hint: .79, .87
+            pos_hint: {"center_x": .5, "center_y": .5}
+            elevation: 6
+            MDFloatLayout:
+                MDLabel:
+                    text: "Создай аккаунт!"
+                    font_size: "45sp"
+                    pos_hint: {"center_x": .56, "center_y": .85}
+                MDTextField:
+                    id: login_registration
+                    mode: "rectangle"
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: 'Логин'
+                    pos_hint: {"center_x": .5, "center_y": .7}
+                MDTextField:
+                    id: password_registration
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: "Пароль"
+                    pos_hint: {"center_x": .5, "center_y": .6}
+                MDTextField:
+                    id: name_registration
+                    mode: "rectangle"
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: "Имя"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                MDTextField:
+                    id: gmail_registration
+                    mode: "rectangle"
+                    size_hint: .85, .09
+                    width: "400dp"
+                    hint_text: "Почта"
+                    helper_text: 'user@gmail.com'
+                    pos_hint: {"center_x": .5, "center_y": .4}
+                MDRaisedButton:
+                    text_size: "15sp"
+                    text: "Создать"
+                    pos_hint: {"center_x": .5, "center_y": .25}
+                    on_release:
+                        app.registration()
+                MDFlatButton:
+                    text: "Уже есть аккаунт?"
+                    font_size: "20sp"
+                    pos_hint: {"center_x": .5, "center_y": .12}
+                    on_release:
+                        app.screen("sig_in")
+
+    MDScreen:
+        name: "main_screen"
+        MDBottomNavigation:
+            #panel_color: "#eeeaea"
+            text_color_active:  1, 1, 0.99, 1
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                text: 'Главная'
+                icon: 'home'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    MDFloatLayout:
+                        size_hint: 1, .10
+                        MDTextField:
+                            id: search_line
+                            mode: "round"
+                            size_hint: .7, .40
+                            width: "400dp"
+                            hint_text: 'Поиск'
+                            pos_hint: {"center_x": .5, "center_y": .5}
+                        MDIconButton:
+                            icon: "cloud-search"
+                            pos_hint: {"center_x": .8, "center_y": .5}
+                    MDBoxLayout:
+                        size_hint: 1, .7
+                        ScrollView:
+                            MDList:
+                                id: output_result
+            MDBottomNavigationItem:
+                name: 'screen 2'
+                text: 'Курсы'
+                icon: 'clipboard-edit'
+                MDLabel:
+                    text: 'hig'
+            MDBottomNavigationItem:
+                name: 'screen 3'
+                text: 'Профиль'
+                icon: 'account'
+                MDFloatLayout:
+                    MDIconButton:
+                        pos_hint: {"center_x": .5, "center_y": .87}
+                        icon_size: "120sp"
+                        icon: "account-circle-outline"
+
+                    MDLabel:
+                        id: name_profile
+                        text: "Васильев\nАндрей Витальевич"
+                        font_style: "Button"
+                        size_hint_y: None
+                        halign: "center"
+                        font_size: "30sp"
+                        pos_hint: {"center_x": .5, "center_y": .74}
+
+                    ScrollView:
+                        pos_hint: {"center_x": .5, "center_y": .15}
+                        MDList:
+                            scroll_y: None
+                            OneLineAvatarListItem:
+                                on_release: app.settings_profile("password")
+                                text: "Изменить пароль"
+                                IconLeftWidget:
+                                    icon: "form-textbox-password"
+                            OneLineAvatarListItem:
+                                on_release: app.settings_profile("name")
+                                text: "Изменить имя"
+                                IconLeftWidget:
+                                    icon: "account-cog"
+                            OneLineAvatarListItem:
+                                on_release: app.screen('sig_in')
+                                text: "Выйти"
+                                IconLeftWidget:
+                                    icon: "exit-to-app"
+
+    MDScreen:
+        name: "settings_screen"
+        MDFloatLayout:
+            MDLabel:
+                id: settings_something_text
+                text: ""
+                halign: 'center'
+                font_size: "40sp"
+                pos_hint: {"center_x": .5, "center_y": .8}
+            MDTextField:
+                id: settings_something_enter
+                mode: "rectangle"
+                size_hint: .85, .07
+                width: "400dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+            MDRaisedButton:
+                text_size: "15sp"
+                text: "Отмена"
+                pos_hint: {"center_x": .5, "center_y": .3}
+                md_bg_color: "red"
+                on_release:
+                    app.screen("main_screen")
+            MDRaisedButton:
+                text_size: "15sp"
+                text: "Создать"
+                pos_hint: {"center_x": .5, "center_y": .25}
+                on_release:
+                    app.setting()
